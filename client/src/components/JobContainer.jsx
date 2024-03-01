@@ -1,30 +1,32 @@
-import React from 'react'
-import Job from './Job'
-import Wrapper from '../assets/wrappers/JobsContainer'
-import { useAllJobsContext } from '../pages/AllJobs'
+import React from "react";
+import Job from "./Job";
+import Wrapper from "../assets/wrappers/JobsContainer";
+import { useAllJobsContext } from "../pages/AllJobs";
+
+import PageButtonContainer from "./PageButtonContainer";
 
 const JobContainer = () => {
-  const { data } = useAllJobsContext()
-  const { jobs } = data
+  const { data } = useAllJobsContext();
+  const { jobs, totalJobs, numOfPages } = data;
 
-  if(jobs.length <= 0){
-
+  if (jobs.length <= 0) {
     <Wrapper>
       <h2>No jobs to display</h2>
-    </Wrapper>
+    </Wrapper>;
   }
   return (
     <Wrapper>
-      <div className='jobs'>
-        {
-          jobs.map((job) => {
-
-            return <Job key={job._id} {...job}/>
-          })
-        }
+      <h5>
+        {totalJobs} job{jobs.length > 1 && "s"} found
+      </h5>
+      <div className="jobs">
+        {jobs.map((job) => {
+          return <Job key={job._id} {...job} />;
+        })}
       </div>
+      {numOfPages > 1 && <PageButtonContainer />}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default JobContainer
+export default JobContainer;

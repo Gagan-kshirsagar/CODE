@@ -1,37 +1,53 @@
-import React from 'react'
+import React from "react";
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { HomeLayout, Landing, Login, Register, Error, DashboardLayout, AddJob, Stats, AllJobs, Profile, Admin, EditJob } from "./pages"
+import {
+  HomeLayout,
+  Landing,
+  Login,
+  Register,
+  Error,
+  DashboardLayout,
+  AddJob,
+  Stats,
+  AllJobs,
+  Profile,
+  Admin,
+  EditJob,
+} from "./pages";
 
-import { action as registerAction } from './pages/Register'
+import { action as registerAction } from "./pages/Register";
 
-import { action as loginAction } from './pages/Login';
+import { action as loginAction } from "./pages/Login";
 
-import { loader as dashboardLoader } from './pages/DashboardLayout'
+import { loader as dashboardLoader } from "./pages/DashboardLayout";
 
-import { action as addJobAction } from './pages/AddJob';
+import { action as addJobAction } from "./pages/AddJob";
 
-import { loader as allJobsLoader } from './pages/AllJobs';
+import { loader as allJobsLoader } from "./pages/AllJobs";
 
-import { loader as editJobLoader } from './pages/EditJob';
+import { loader as editJobLoader } from "./pages/EditJob";
 
-import { action as editJobAction } from './pages/EditJob';
+import { action as editJobAction } from "./pages/EditJob";
 
-import { action as deleteAction } from './pages/DeleteJob';
+import { action as deleteAction } from "./pages/DeleteJob";
+
+import { loader as adminLoader } from "./pages/Admin";
+
+import { action as profileAction } from "./pages/Profile";
+
+import { loader as statsLoader } from "./pages/Stats";
 
 export const checkDarkTheme = () => {
+  const isDarkTheme = localStorage.getItem("darkTheme") === "true";
 
-  const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+  document.body.classList.toggle("dark-theme", isDarkTheme);
 
-  document.body.classList.toggle('dark-theme', isDarkTheme);
-
-  return isDarkTheme
-}
+  return isDarkTheme;
+};
 const App = () => {
-
   const router = createBrowserRouter([
-
     {
       path: "/",
       element: <HomeLayout />,
@@ -44,59 +60,60 @@ const App = () => {
         {
           path: "register",
           element: <Register />,
-          action : registerAction
+          action: registerAction,
         },
 
         {
-          path: 'login',
+          path: "login",
           element: <Login />,
-          action : loginAction
+          action: loginAction,
         },
         {
-          path: 'dashboard',
+          path: "dashboard",
           element: <DashboardLayout />,
-          loader : dashboardLoader,
+          loader: dashboardLoader,
           children: [
             {
               index: true,
               element: <AddJob />,
-              action : addJobAction
+              action: addJobAction,
             },
             {
               path: "stats",
-              element: <Stats />
+              element: <Stats />,
+              loader: statsLoader
             },
             {
               path: "all-jobs",
               element: <AllJobs />,
-              loader : allJobsLoader
+              loader: allJobsLoader,
             },
             {
               path: "profile",
-              element: <Profile />
+              element: <Profile />,
+              action: profileAction,
             },
             {
               path: "admin",
-              element: <Admin />
+              element: <Admin />,
+              loader: adminLoader,
             },
             {
-              path : "edit-job/:id",
-              element : <EditJob/>,
-              loader : editJobLoader,
-              action : editJobAction
+              path: "edit-job/:id",
+              element: <EditJob />,
+              loader: editJobLoader,
+              action: editJobAction,
             },
             {
-              path : "delete-job/:id",
-              action : deleteAction
-            }
-          ]
-        }
-      ]
+              path: "delete-job/:id",
+              action: deleteAction,
+            },
+          ],
+        },
+      ],
     },
   ]);
-  return (
-    <RouterProvider router={router} />
-  )
-}
+  return <RouterProvider router={router} />;
+};
 
-export default App
+export default App;

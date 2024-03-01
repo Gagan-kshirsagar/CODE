@@ -5111,7 +5111,7 @@ export default SubmitBtn;
   "lastName": "Snickerdoodle",
   "location": "Chuckleburg"
 }
-```
+``` 
 
 #### Test User - Login Page
 
@@ -5224,7 +5224,7 @@ try {
   console.log('Success!!!');
   process.exit(0);
 } catch (error) {
-  console.log(error);
+  console.log(error); 
   process.exit(1);
 }
 ```
